@@ -12,12 +12,21 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Ramsey\Uuid\Type\Integer;
 
 class CountryResource extends Resource
 {
     protected static ?string $model = Country::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-flag';
+
+    protected static ?string $navigationLabel = 'Country';
+
+    protected static ?string $modelLabel = 'Employees Countries';
+
+    protected static ?string $navigationGroup = 'System Managment';
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
