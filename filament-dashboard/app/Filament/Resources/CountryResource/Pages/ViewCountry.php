@@ -4,17 +4,16 @@ namespace App\Filament\Resources\CountryResource\Pages;
 
 use App\Filament\Resources\CountryResource;
 use Filament\Actions;
-use Filament\Resources\Pages\EditRecord;
+use Filament\Resources\Pages\ViewRecord;
 
-class EditCountry extends EditRecord
+class ViewCountry extends ViewRecord
 {
     protected static string $resource = CountryResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\ViewAction::make(),
-            Actions\DeleteAction::make(),
+            Actions\EditAction::make(),
         ];
     }
 }

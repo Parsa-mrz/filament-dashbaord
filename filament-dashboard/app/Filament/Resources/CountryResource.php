@@ -12,7 +12,6 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Ramsey\Uuid\Type\Integer;
 
 class CountryResource extends Resource
 {
@@ -22,7 +21,7 @@ class CountryResource extends Resource
 
     protected static ?string $navigationLabel = 'Country';
 
-    protected static ?string $modelLabel = 'Employees Countries';
+    protected static ?string $modelLabel = 'Countries';
 
     protected static ?string $navigationGroup = 'System Managment';
 
@@ -32,7 +31,16 @@ class CountryResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('code')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('phonecode')
+                    ->tel()
+                    ->required()
+                    ->maxLength(255),
             ]);
     }
 
@@ -40,12 +48,26 @@ class CountryResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('code')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('phonecode')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -67,6 +89,7 @@ class CountryResource extends Resource
         return [
             'index' => Pages\ListCountries::route('/'),
             'create' => Pages\CreateCountry::route('/create'),
+            'view' => Pages\ViewCountry::route('/{record}'),
             'edit' => Pages\EditCountry::route('/{record}/edit'),
         ];
     }
