@@ -52,6 +52,9 @@ class CountryResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('code')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('states_count')
+                ->counts('states')
+                ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('phonecode')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
