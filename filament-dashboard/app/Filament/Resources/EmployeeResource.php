@@ -46,12 +46,6 @@ class EmployeeResource extends Resource
                 Forms\Components\Section::make('User address')
                 ->schema([
                     Forms\Components\TextInput::make('address')
-                    ->required()
-                    ->maxLength(255),
-                    Forms\Components\TextInput::make('zip_code')
-                        ->required()
-                        ->maxLength(255),
-                    Forms\Components\TextInput::make('address')
                         ->required()
                         ->maxLength(255),
                     Forms\Components\TextInput::make('zip_code')
@@ -99,8 +93,12 @@ class EmployeeResource extends Resource
                 Forms\Components\Section::make('Dates')
                     ->schema([
                     Forms\Components\DatePicker::make('date_of_birth')
+                        ->native(false)
+                        ->displayFormat('d/m/Y')
                         ->required(),
                     Forms\Components\DatePicker::make('date_hired')
+                        ->native(false)
+                        ->displayFormat('d/m/Y')
                         ->required(),
                     ])->columns(2),
 
@@ -111,18 +109,7 @@ class EmployeeResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('country_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('state_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('city_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('department_id')
-                    ->numeric()
-                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('first_name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('last_name')
